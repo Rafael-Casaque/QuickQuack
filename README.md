@@ -1,7 +1,7 @@
 <h1>Documentação de convenções e helps para desenvolvimento do projeto</h1><br>
 <h2>TypeScript:</h2>
 <p>o TypeScript é muito importante para garantir a segurança e consistência do sistema, assegurando a utilização de todos os parâmetros com seus respectivos tipos, além de proporcionar um ótimo recurso de autocompletagem de código.</p>
-<div class="code-container">
+<div>
     <pre>
       <code>
         
@@ -37,3 +37,11 @@ export const App = (props: AppProps) => {
   <p>Pronto, agora é apenas copiar o tipo, nesse caso é React.Dispatch</p>
   <h3>Não sei como tipar de jeito nenhum, o que eu faço?</h3>
   <p>Em último caso, podemos passar o tipo any, que aceita qualquer tipo de parâmetro (Cuidado com esse tipo, usar só em último caso, sempre opte por não usá-lo).</p>
+  
+  <h2>Chakra.UI:</h2>
+  <p>O chakra é uma biblioteca de componentes prontos para uso em ambiente React, essa lib permite substituir o html + css clássico pelos componentes disponibilizados, declarando as propiedades css dentro como props, não necessitando da criação de documentos css.</p>
+  <p>Exemplo de utilização dos componentes Flex e Text</p>
+<img src="https://github.com/Rafael-Casaque/SoarStream/assets/72985101/a403f45b-cb7c-4883-aaa0-d299f4598e22">
+<p>Note que as props passadas são exatamente iguais do css, a única diferença é que propriedades que utilizam hífem, devem adotar camel case, como justify-content = justifyContent</p>
+<a href="https://chakra-ui.com/docs/components" target="_blank">Documentação oficial do Chakra.ui</a>
+<p>A documentação do chakra é ótima, no lado esquerdo do site podemos ver todos os componentes disponíveis, exemplos de utilização e propriedades disponíveis.</p>
