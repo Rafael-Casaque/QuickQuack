@@ -1,4 +1,4 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Flex, Link } from "@chakra-ui/react";
 import { Login } from "../components/Login";
 import { Register } from "../components/Register";
 import { useState } from "react";
@@ -24,11 +24,25 @@ export const AccessPage = () => {
 
   return (
     <>
-        <Flex style={{ perspective: "1000px" }} h="70vh" w="70vw">
-          <Login rotate={login.rotate} index={login.index} />
-          <Register rotate={register.rotate} index={register.index} />      
-        </Flex>
-        <Button onClick={() => changePage()}>Mudar</Button>
+      <Flex
+        style={{ perspective: "1000px" }}
+        minH="100vh"
+        w="100%"
+        align="center"
+        justify="center"
+        bg="black"
+      >
+        <Login rotate={login.rotate} index={login.index}>
+          <Link textAlign="center" color="white" onClick={changePage}>
+            Não possui cadastro? Cadastre-se
+          </Link>
+        </Login>
+        <Register rotate={register.rotate} index={register.index}>
+          <Link textAlign="center" color="white" onClick={changePage}>
+            Já possui cadastro? Faça Login
+          </Link>
+        </Register>
+      </Flex>
     </>
   );
 };
