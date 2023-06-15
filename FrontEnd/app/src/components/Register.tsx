@@ -6,6 +6,7 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 interface RegisterProps {
   rotate: string;
@@ -14,6 +15,12 @@ interface RegisterProps {
 }
 
 export const Register = (props: RegisterProps) => {
+
+  const [bDate, setBDate] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <Flex
       h="50vh"
@@ -37,10 +44,12 @@ export const Register = (props: RegisterProps) => {
       <Text fontSize="36px" w="100%" align="center">
         Sign Up
       </Text>
-      <Flex w="75%" direction="column" h="75%" justify="center">
+      <Flex as="form" w="75%" direction="column" h="75%" justify="center">
         <FormControl mb="8px">
           <FormLabel>Nome:</FormLabel>
           <Input
+            value={name}
+            onChange={(e) => { setName(e.target.value) }}
             bg="#ccc"
             type="text"
             placeholder="Digite seu nome completo"
@@ -49,6 +58,8 @@ export const Register = (props: RegisterProps) => {
         <FormControl mb="8px">
           <FormLabel>Email:</FormLabel>
           <Input
+            value={email}
+            onChange={(e) => { setEmail(e.target.value) }}
             bg="#ccc"
             type="email"
             placeholder="Digite seu endereço de email"
@@ -57,19 +68,23 @@ export const Register = (props: RegisterProps) => {
         <FormControl mb="8px">
           <FormLabel>Data de nascimento:</FormLabel>
           <Input
+            value={bDate}
+            onChange={(e) => { setBDate(e.target.value) }}
             bg="#ccc"
-            type="date"            
+            type="date"
           />
         </FormControl>
         <FormControl mb="8px">
           <FormLabel>Senha:</FormLabel>
           <Input
+            value={password}
+            onChange={(e) => { setPassword(e.target.value) }}
             bg="#ccc"
             type="password"
             placeholder="Digite sua senha de acesso"
           />
         </FormControl>
-        <Button colorScheme="blackAlpha" w="50%" alignSelf="center" mt="8px">
+        <Button type="submit" onClick={(e) => { e.preventDefault(); register(email, password, name, new Date(parseInt(bDate.slice(0, 4)), parseInt(bDate.slice(5, 7)), parseInt(bDate.slice(8, 10)))) }} colorScheme="blackAlpha" w="50%" alignSelf="center" mt="8px">
           Cadastrar
         </Button>
       </Flex>
@@ -77,3 +92,12 @@ export const Register = (props: RegisterProps) => {
     </Flex>
   );
 };
+
+const register = (email: string, password: string, name: string, bDate: Date) => {
+  console.log({
+    name: name,
+    bDate: bDate.toLocaleDateString(),
+    email: email,
+    password: password,
+  })
+}
