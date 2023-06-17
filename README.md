@@ -45,6 +45,15 @@ export const App = (props: AppProps) => {
 <p>Note que as props passadas são exatamente iguais do css, a única diferença é que propriedades que utilizam hífem, devem adotar camel case, como justify-content = justifyContent</p>
 <a href="https://chakra-ui.com/docs/components" target="_blank">Documentação oficial do Chakra.ui</a>
 <p>A documentação do chakra é ótima, no lado esquerdo do site podemos ver todos os componentes disponíveis, exemplos de utilização e propriedades disponíveis.</p>
+<h3>Responsividade:</h3>
+<p>O Chakra também facilita muito a implementação da responsividade, através dos breakpoints padrões, que são esses:</p>
+<img src="https://github.com/Rafael-Casaque/SoarStream/assets/72985101/3302c66b-4aca-4bfc-afc8-cab0bb1e2058">
+<p>E como implementar no código? Através de uma simples list [ ], o Chakra já irá selecionar o índice da list conforme o breakpoint</p>
+<p>Dessa maneira:</p>
+<img src="https://github.com/Rafael-Casaque/SoarStream/assets/72985101/8d7852df-b441-45cf-8b3c-7047979aee65">
+<p>Nesse exemplo a propriedade width do elemente muda conforme o tamanho da tela</p>
+<p>Todas as propriedades css podem receber os responsive styles dessa maneira, passando uma list</p>
+<a href="https://chakra-ui.com/docs/styled-system/responsive-styles">Documentação completa sobre responsive styles</a>
 <hr>
 <h2>Padrões Github:</h2>
 <h3>commits</h3>
