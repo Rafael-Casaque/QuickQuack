@@ -12,8 +12,11 @@ import {
 import { OptionsIcon } from "../icons/OptionsIcon";
 import { MessageReactions } from "./MessageReactions";
 import { CommentBox } from "./CommentBox";
+import { useState } from "react";
 
 export const Message = () => {
+  const [showComment, setShowComment] = useState(false);
+
   return (
     <Flex
       w="75%"
@@ -65,7 +68,17 @@ export const Message = () => {
             />
           </AspectRatio>
           <MessageReactions />
-          <CommentBox />
+
+          {showComment ? (
+            <CommentBox />
+          ) : (
+            <Text align="center" onClick={()=>{setShowComment(!showComment)}} css={{ cursor: "pointer" }}>
+              Ver comentários
+            </Text>
+          )}
+          { showComment && <Text align="center" onClick={()=>{setShowComment(!showComment)}} css={{ cursor: "pointer" }}>
+              Esconder comentários
+            </Text>}
         </Flex>
       </Flex>
     </Flex>
