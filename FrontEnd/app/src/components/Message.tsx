@@ -72,13 +72,27 @@ export const Message = () => {
           {showComment ? (
             <CommentBox />
           ) : (
-            <Text align="center" onClick={()=>{setShowComment(!showComment)}} css={{ cursor: "pointer" }}>
+            <Text
+              align="center"
+              onClick={() => {
+                setShowComment(!showComment);
+              }}
+              css={{ cursor: "pointer" }}
+            >
               Ver comentários
             </Text>
           )}
-          { showComment && <Text align="center" onClick={()=>{setShowComment(!showComment)}} css={{ cursor: "pointer" }}>
+          {showComment && (
+            <Text
+              align="center"
+              onClick={() => {
+                setShowComment(!showComment);
+              }}
+              css={{ cursor: "pointer" }}
+            >
               Esconder comentários
-            </Text>}
+            </Text>
+          )}
         </Flex>
       </Flex>
     </Flex>
