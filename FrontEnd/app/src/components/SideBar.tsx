@@ -50,7 +50,7 @@ export const SideBar = () => {
                 </Text>
             </Flex>
         </Flex>
-      <UserOptions name={"Rafael Rocha Rafael Rocha"} username={"@rrcasaque"} />
+      <UserOptions name={"Rafael Rocha Casaque"} username={"@rrcasaque"} avatar="http://benini.paginas.scl.ifsp.edu.br/img/Rafael%20Rocha%20Casaque.jpeg" />
     </Flex>
   );
 };

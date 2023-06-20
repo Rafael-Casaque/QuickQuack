@@ -13,8 +13,24 @@ import { OptionsIcon } from "../icons/OptionsIcon";
 import { MessageReactions } from "./MessageReactions";
 import { CommentBox } from "./CommentBox";
 import { useState } from "react";
+import { calculateTimeDifference } from "./Comment";
 
-export const Message = () => {
+interface MessageProps {
+  createdBy: string;
+  usernameAuthor: string;
+  createdAt: Date;
+  description: string;
+  CommentList: {
+    author: string;
+    avatar: string;
+    content: string;
+    createdAt: Date;
+  }[];
+  likeList: string[];
+  shareList: string[];
+}
+
+export const Message = (props: MessageProps) => {
   const [showComment, setShowComment] = useState(false);
 
   return (
@@ -32,9 +48,10 @@ export const Message = () => {
           <Flex align="center">
             <Avatar src="https://static.poder360.com.br/2023/02/Lula-foto-oficial-recortada-reduzida-848x477.jpg" />
             <Text ml="10px" fontWeight="bold">
-              Lula{" "}
+              {props.createdBy + " "}
               <Text as="span" fontWeight="light">
-                @LulaOfiicial · 3h
+                {props.usernameAuthor} ·{" "}
+                {calculateTimeDifference(props.createdAt)}
               </Text>
             </Text>
           </Flex>
@@ -47,7 +64,7 @@ export const Message = () => {
               </MenuButton>
               <MenuList>
                 <MenuItem color="black">
-                  Deixar de seguir @LulaOfiicial
+                  Deixar de seguir {props.usernameAuthor}
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -55,10 +72,7 @@ export const Message = () => {
         </Flex>
         <Flex direction="column">
           <Text ml="5px" align="justify" textIndent="40px">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Dignissimos sit quae quibusdam fuga harum mollitia ab quia tenetur,
-            illo voluptatibus rem eaque, molestiae blanditiis illum facere
-            dolore necessitatibus aperiam vel!
+            {props.description}
           </Text>
           <AspectRatio ratio={1} my="10px">
             <iframe
@@ -67,20 +81,26 @@ export const Message = () => {
               allowFullScreen
             />
           </AspectRatio>
-          <MessageReactions />
+          <MessageReactions
+            likeCount={props.likeList.length}
+            commentCount={props.CommentList.length}
+            shareCount={props.shareList.length}
+          />
 
           {showComment ? (
-            <CommentBox />
+            <CommentBox CommentList={props.CommentList} />
           ) : (
-            <Text
-              align="center"
-              onClick={() => {
-                setShowComment(!showComment);
-              }}
-              css={{ cursor: "pointer" }}
-            >
-              Ver comentários
-            </Text>
+            props.CommentList.length > 0 && (
+              <Text
+                align="center"
+                onClick={() => {
+                  setShowComment(!showComment);
+                }}
+                css={{ cursor: "pointer" }}
+              >
+                Ver comentários
+              </Text>
+            )
           )}
           {showComment && (
             <Text

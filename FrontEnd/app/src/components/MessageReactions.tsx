@@ -8,7 +8,13 @@ import { ReplyPostModal } from "./Modals/ReplyPostModal";
 import { CustomModal } from "./Modals/CustomModal";
 import { SelectedLikeIcon } from "../icons/SelectedLikeIcon";
 
-export const MessageReactions = () => {
+interface MessageReactionsProps {
+  likeCount: number;
+  commentCount: number;
+  shareCount: number;
+}
+
+export const MessageReactions = (props: MessageReactionsProps) => {
   const [modal, setModal] = useState<JSX.Element>(<></>);
   const [like, setLike] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -23,13 +29,13 @@ export const MessageReactions = () => {
       justify="space-around"
     >
       <Flex align="center" justify="center" css={{ cursor: "pointer" }} onClick={()=>{setLike(!like)}}>
-        {like ? (
+        {!like ? (
           <LikeIcon fill="white" boxSize="20px" />
         ) : (
           <SelectedLikeIcon fill="white" boxSize="20px" />
         )}
         <Text ml="5px" color="white">
-          20
+          {props.likeCount}
         </Text>
       </Flex>
       <Flex
@@ -43,7 +49,7 @@ export const MessageReactions = () => {
       >
         <CommentIcon fill="white" boxSize="30px" />
         <Text ml="5px" color="white">
-          20
+          {props.commentCount}
         </Text>
       </Flex>
       <Flex
@@ -57,7 +63,7 @@ export const MessageReactions = () => {
       >
         <ShareIcon fill="white" boxSize="22px" />
         <Text ml="5px" color="white">
-          20
+          {props.shareCount}
         </Text>
       </Flex>
       <CustomModal isOpen={isOpen} onClose={onClose} children={modal} />

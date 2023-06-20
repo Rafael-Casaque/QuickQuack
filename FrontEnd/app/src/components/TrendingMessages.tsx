@@ -1,6 +1,10 @@
 import { Flex, Link, Text } from "@chakra-ui/react";
 
-export const TrendingMessages = () => {
+interface TrendingMessagesProps {
+  trendingMessagesList: [string,string,string,string,string];
+}
+
+export const TrendingMessages = (props: TrendingMessagesProps) => {
   return (
     <Flex
       bg="black"
@@ -29,41 +33,36 @@ export const TrendingMessages = () => {
           <Text fontWeight="bold" color="whiteAlpha.500" as="span">
             #1
           </Text>{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus,
-          deleniti repudiandae, sapiente aliquid ab modi voluptatum
+          {props.trendingMessagesList[0]}
         </Text>
         <Text align="justify" my="5px" fontWeight="light">
           <Text fontWeight="bold" color="whiteAlpha.500" as="span">
             #2
           </Text>{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus,
-          deleniti repudiandae, sapiente aliquid ab modi voluptatum
+          {props.trendingMessagesList[1]}
         </Text>
         <Text align="justify" my="5px" fontWeight="light">
           <Text fontWeight="bold" color="whiteAlpha.500" as="span">
             #3
           </Text>{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus,
-          deleniti repudiandae, sapiente aliquid ab modi voluptatum
+          {props.trendingMessagesList[2]}
         </Text>
         <Text align="justify" my="5px" fontWeight="light">
           <Text fontWeight="bold" color="whiteAlpha.500" as="span">
             #4
           </Text>{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus,
-          deleniti repudiandae, sapiente aliquid ab modi voluptatum
+          {props.trendingMessagesList[3]}
         </Text>
         <Text align="justify" my="5px" fontWeight="light">
           <Text fontWeight="bold" color="whiteAlpha.500" as="span">
             #5
           </Text>{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus,
-          deleniti repudiandae, sapiente aliquid ab modi voluptatum
+          {props.trendingMessagesList[4]}
         </Text>
       </Flex>
       <Flex color="white" wrap="wrap" w="85%" justify="center">
-        <Text mx="5px">Desenvolvido por Jatubeiros &copy; 2023</Text>        
-        <Link mx="5px">Termos de Serviço</Link>        
+        <Text mx="5px">Desenvolvido por Jatubeiros &copy; 2023</Text>
+        <Link mx="5px">Termos de Serviço</Link>
       </Flex>
     </Flex>
   );
