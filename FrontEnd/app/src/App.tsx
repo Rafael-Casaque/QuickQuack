@@ -1,5 +1,3 @@
-import { FeedPage } from "./pages/FeedPage";
-
 export const App = () => {
-  return <FeedPage />;
+  return <></>;
 };
