@@ -1,31 +1,45 @@
 import {
-    Button,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-  } from "@chakra-ui/react";
-  
-  interface ShareModalProps {
-    btnFunction: () => void;
-  }
-  
-  export const ShareModal = (props: ShareModalProps) => {
-    return (
-      <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <p>Share Modal</p>
-        </ModalBody>
-  
-        <ModalFooter>
-          <Button colorScheme="blue" onClick={props.btnFunction}>
-            send
-          </Button>        
-        </ModalFooter>
-      </ModalContent>
-    );
-  };
-  
+  Button,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Textarea,
+} from "@chakra-ui/react";
+import { useState } from "react";
+
+export const ShareModal = () => {
+  const [description, setDescription] = useState("");
+
+  return (
+    <ModalContent>
+      <ModalHeader>Compartilhar postagem</ModalHeader>
+      <ModalCloseButton />
+      <ModalBody>
+        <Textarea
+          h="175px"
+          resize="none"
+          value={description}
+          onChange={(e) => setDescription(e.currentTarget.value)}
+          placeholder="Insira uma descrição"
+        ></Textarea>
+      </ModalBody>
+
+      <ModalFooter>
+        <Button
+          colorScheme="blue"
+          onClick={() => {
+            publish(description);
+          }}
+        >
+          Publicar
+        </Button>
+      </ModalFooter>
+    </ModalContent>
+  );
+};
+
+const publish = (description: string) => {
+  console.log(description);
+};
