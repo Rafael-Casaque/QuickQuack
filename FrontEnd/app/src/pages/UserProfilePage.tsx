@@ -1,7 +1,18 @@
-import { Avatar, Button, CloseButton, Flex, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react"
+import { Avatar, Button, CloseButton, Flex, FormControl, FormLabel, Heading, Input, InputGroup, InputRightElement, Textarea } from "@chakra-ui/react"
 import { SideBar } from "../components/SideBar"
+import React from "react"
 
-export const UserProfilePage = () => {
+interface UserProfileProps {
+    name: string;
+    bio: string;
+    avatar?: string;
+    password: string;
+}
+
+export const UserProfilePage = (props: UserProfileProps) => {
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
+
     return (
         <Flex w="100%" minH="100vh">
             <SideBar />
@@ -19,10 +30,28 @@ export const UserProfilePage = () => {
                     <Heading size='md' color="white">Editar perfil</Heading>
                     <Button borderRadius="30px" justifySelf="end" mr="16px">Salvar</Button>
                 </Flex>
-                <Avatar name="Rafael Rocha Casaque" size='2xl' src="http://benini.paginas.scl.ifsp.edu.br/img/Rafael%20Rocha%20Casaque.jpeg" mt="16px" />
-                <FormControl as='fieldset' w="80%" border="2px" mt="15px">
+                <Avatar name={props.name} size='2xl' src={props.avatar} mt="16px" />
+                <FormControl as='fieldset' w="80%" border="2px" mt="15px" borderRadius="15px" >
                     <FormLabel as='legend' fontSize="18px">Nome</FormLabel>
-                    <Input placeholder='Rafael Casaque' variant='unstyled' padding="5px"/>
+                    <Input variant='unstyled' padding="5px" value={props.name} color='white'/>
+                </FormControl>
+                <FormControl as='fieldset' w="80%" border="2px" mt="15px" borderRadius="15px" >
+                    <FormLabel as='legend' fontSize="18px">Bio</FormLabel>
+                    <Textarea variant='unstyled' padding="5px" value={props.bio} color='white'/>
+                </FormControl>
+                <FormControl as='fieldset' w="80%" border="2px" mt="15px" borderRadius="15px" >
+                    <FormLabel as='legend' fontSize="18px">Senha</FormLabel>
+                    <Flex direction="row" justify="space-between" align="center">
+                        <Input
+                            type={show ? 'text' : 'password'}
+                            variant='unstyled'
+                            padding="5px" 
+                            value={props.password}
+                            color='white'/>
+                        <Button size='sm' onClick={handleClick} mr='15px' mb='5px' borderRadius="30px">
+                            {show ? 'Hide' : 'Show'}
+                        </Button>
+                    </Flex>
                 </FormControl>
             </Flex>
         </Flex>
