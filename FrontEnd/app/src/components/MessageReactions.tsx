@@ -28,7 +28,14 @@ export const MessageReactions = (props: MessageReactionsProps) => {
       align="center"
       justify="space-around"
     >
-      <Flex align="center" justify="center" css={{ cursor: "pointer" }} onClick={()=>{setLike(!like)}}>
+      <Flex
+        align="center"
+        justify="center"
+        css={{ cursor: "pointer" }}
+        onClick={() => {
+          setLike(!like);
+        }}
+      >
         {!like ? (
           <LikeIcon fill="white" boxSize="20px" />
         ) : (
@@ -79,7 +86,7 @@ const changeModal = (
   onOpen();
   switch (id) {
     case "share":
-      setModal(<ShareModal btnFunction={() => {}} />);
+      setModal(<ShareModal />);
       break;
     case "comment":
       setModal(<ReplyPostModal btnFunction={() => {}} />);
