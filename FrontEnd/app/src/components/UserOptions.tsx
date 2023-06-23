@@ -51,8 +51,9 @@ export const UserOptions = (props: UserOptionsProps) => {
           </Flex>
         </Flex>
       </MenuButton>
-      <MenuList bg="transparent" borderColor="transparent">
-        <MenuItem w="100px" alignSelf="center" mt="-10px" px="35px" borderRadius="5px">Sair</MenuItem>
+      <MenuList bg="white" borderColor="transparent">
+        <MenuItem alignSelf="center" borderRadius="5px">Sair</MenuItem>
+        <MenuItem alignSelf="center" borderRadius="5px">Alterar informações</MenuItem>
       </MenuList>
     </Menu>
   );

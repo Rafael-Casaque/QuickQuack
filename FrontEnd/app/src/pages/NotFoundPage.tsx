@@ -1,8 +1,7 @@
-import { Flex, Text , Image} from "@chakra-ui/react";
-import { useState } from "react";
+import { Flex } from "@chakra-ui/react";
 import { ErrorMessage } from "../components/ErrorMessage";
 
-export const ErrorPage = () => {
+export const NotFoundPage = () => {
     return (
       <>
         <Flex
