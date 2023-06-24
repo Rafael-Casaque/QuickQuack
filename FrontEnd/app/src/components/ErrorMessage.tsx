@@ -1,4 +1,4 @@
-import { extendTheme, Image, Flex, FormControl, FormLabel, Input, Text, Button } from "@chakra-ui/react";
+import { Image, Flex, Text, Button } from "@chakra-ui/react";
 
 export const ErrorMessage = () => {
 
