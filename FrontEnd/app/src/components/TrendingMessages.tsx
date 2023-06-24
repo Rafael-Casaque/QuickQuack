@@ -8,11 +8,20 @@ export const TrendingMessages = (props: TrendingMessagesProps) => {
   return (
     <Flex
       bg="black"
-      minH="100vh"
+      h="100vh"
       position="fixed"
       w={{ base: "0", md: "250px", lg: "325px" }}
       display={{ base: "none", md: "flex", lg: "flex" }}
-      right="0px"
+      right={{
+        md: "0px",
+        lg: "0px",
+        xl: "auto",
+      }}
+      ml={{
+        md: "0px",
+        lg: "0px",
+        xl: "1041px",
+      }}
       align="center"
       direction="column"
       justify="space-around"
