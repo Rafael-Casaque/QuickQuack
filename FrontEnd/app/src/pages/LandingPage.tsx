@@ -1,9 +1,9 @@
 import { Flex, Button } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 export const LandingPage = () => {
-  const redirect = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -24,10 +24,24 @@ export const LandingPage = () => {
         >
           Quick Quack
         </Heading>
-        <Button alignSelf="center" mt="24px" onClick={()=>{redirect("/home")}}>
+        <Button
+          alignSelf="center"
+          mt="24px"
+          onClick={() => {
+            redirect(navigate);
+          }}
+        >
           Acessar
         </Button>
       </Flex>
     </>
   );
+};
+
+const redirect = (navigate: NavigateFunction) => {
+  const token = localStorage.getItem("userToken");
+  if (token === null) navigate("/login");
+  else {
+    
+  }
 };
