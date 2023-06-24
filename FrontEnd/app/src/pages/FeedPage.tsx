@@ -6,7 +6,7 @@ import { TrendingMessages } from "../components/TrendingMessages";
 export const FeedPage = () => {
   return (
     <Flex justify="center" align="center">
-      <Flex w="100%" maxW="1366px" minH="100vh">
+      <Flex w="100%" maxW="1300px" minH="100vh">
         <SideBar />
         <Flex ml={{ base: "60px", md: "60px", lg: "325px" }} w={{base:"calc(100% - 60px)",md:"calc(100% - 60px - 250px)",lg:"calc(100% - 650px)"}} minH="100%" direction="column" align="center">        
         <Text alignSelf="flex-start" m="20px" fontSize="30px" fontWeight="bold">Home</Text>
