@@ -1,7 +1,7 @@
 import { Flex, Link, Text } from "@chakra-ui/react";
 
 interface TrendingMessagesProps {
-  trendingMessagesList: [string,string,string,string,string];
+  trendingMessagesList: [string, string, string, string, string];
 }
 
 export const TrendingMessages = (props: TrendingMessagesProps) => {
@@ -10,7 +10,8 @@ export const TrendingMessages = (props: TrendingMessagesProps) => {
       bg="black"
       minH="100vh"
       position="fixed"
-      w="30%"
+      w={{ base: "0", md: "250px", lg: "325px" }}
+      display={{ base: "none", md: "flex", lg: "flex" }}
       right="0px"
       align="center"
       direction="column"
@@ -61,8 +62,9 @@ export const TrendingMessages = (props: TrendingMessagesProps) => {
         </Text>
       </Flex>
       <Flex color="white" wrap="wrap" w="85%" justify="center">
-        <Text mx="5px">Desenvolvido por Jatubeiros &copy; 2023</Text>
-        <Link mx="5px">Termos de Serviço</Link>
+        <Text mx="2px">Desenvolvido por Jatubeiros</Text>
+        <Text mx="2px">&copy; 2023</Text>
+        <Link mx="2px">Termos de Serviço</Link>
       </Flex>
     </Flex>
   );
