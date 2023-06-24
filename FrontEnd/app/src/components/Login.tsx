@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
+import { Button, Flex, FormControl, FormLabel, Image, Input, InputGroup, InputRightAddon, Text } from "@chakra-ui/react";
 import { useState } from 'react'
 
 interface LoginProps {
@@ -11,6 +11,8 @@ export const Login = (props: LoginProps) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [duckImage, setDuckImage] = useState("patoCima.png");
+  const [duck, setDuck] = useState(0);
 
   return (
     <Flex
@@ -32,6 +34,7 @@ export const Login = (props: LoginProps) => {
       zIndex={props.index}
     >
       <Text fontSize="36px" w="100%" align="center">Sign In</Text>
+      <Image src={duckImage} w="200px" transform={`rotate(${95}deg)`} mb="-50px"/>
       <Flex w="75%" as="form" direction="column" h="75%" justify="center">
         <FormControl mb="8px">
           <FormLabel>Email:</FormLabel>
@@ -39,7 +42,10 @@ export const Login = (props: LoginProps) => {
         </FormControl>
         <FormControl mb="8px">
           <FormLabel>Senha:</FormLabel>
-          <Input value={password} onChange={(e) => { setPassword(e.target.value) }} bg="#ccc" type="password" placeholder="Digite sua senha de acesso" />
+          <InputGroup>
+            <Input value={password} onChange={(e) => { setPassword(e.target.value) }} bg="#ccc" type="password" placeholder="Digite sua senha de acesso" />
+            <InputRightAddon children='.com' />
+          </InputGroup>
         </FormControl>
         <Button type="submit" onClick={(e) => { e.preventDefault(); login(email, password) }} colorScheme="blackAlpha" w="50%" alignSelf="center" mt="8px">Entrar</Button>
       </Flex>
