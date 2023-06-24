@@ -20,7 +20,7 @@ export const TrendingMessages = (props: TrendingMessagesProps) => {
       ml={{
         md: "0px",
         lg: "0px",
-        xl: "974px",
+        xl: "975px",
       }}
       align="center"
       direction="column"
