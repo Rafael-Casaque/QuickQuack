@@ -2,10 +2,12 @@ package com.quickQuack.domain.model;
 
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "like")
 public class Like {
+    @Id
     private User user;
     private LocalDate date;
 
