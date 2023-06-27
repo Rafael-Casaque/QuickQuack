@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.quickQuack.domain.model.Message;
 import com.quickQuack.domain.services.FileManagerService;
+import com.quickQuack.domain.services.MessageService;
 import com.quickQuack.repositories.MessageRepository;
 
 @RestController
@@ -26,10 +27,11 @@ public class MessageController {
     FileManagerService fileService;
 
     @GetMapping
-        public List<Message> consultarRegistros(
-            @RequestParam("start") String start,
-            @RequestParam("end") String end) {
-        return messageRepository.findAllByStartAndEnd(start, end);
+    public List<Message> consultarRegistros(
+            @RequestParam("start") int start,
+            @RequestParam("end") int end) {
+        MessageService messageService = new MessageService(messageRepository);
+        return messageService.getMessagesByRange(start, end);        
     }
 
     @PostMapping
@@ -40,14 +42,14 @@ public class MessageController {
             @RequestParam("likeCount") int likeCount,
             @RequestParam("shareCount") int shareCount) throws IOException {
 
-            String originalFileName = file.getOriginalFilename();
-            String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-            String fileName = UUID.randomUUID().toString() + extension;
+        String originalFileName = file.getOriginalFilename();
+        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        String fileName = UUID.randomUUID().toString() + extension;
 
-            String url = fileService.uploadFile(file, fileName);
-    
-            Message message = new Message(id,url, content, null, likeCount, shareCount, null, null);
-            messageRepository.save(message);
-            return "deu certo";
-            }
-        }
+        String url = fileService.uploadFile(file, fileName);
+
+        Message message = new Message(id, url, content, null, likeCount, shareCount, null, null);
+        messageRepository.save(message);
+        return "deu certo";
+    }
+}
