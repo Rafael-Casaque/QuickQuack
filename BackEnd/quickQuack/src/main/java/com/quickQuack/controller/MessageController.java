@@ -48,7 +48,8 @@ public class MessageController {
 
         String url = fileService.uploadFile(file, fileName);
 
-        Message message = new Message(id, url, content, null, likeCount, shareCount, null, null);
+        Message message = new Message(url, content, null, null, null, null);
+                
         messageRepository.save(message);
         return "deu certo";
     }
