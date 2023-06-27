@@ -7,68 +7,76 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "comment")
-public class Comment {
-    private String id;
+public class Comment {    
     
     private User author;
 
     private String content;
 
-    private LocalDate publicationDate;
-
-    private int likeCount;
+    private LocalDate publicationDate;    
 
     private List<Like> likeList = new ArrayList<Like>();
 
-    public Comment(String id, User author, String content, LocalDate publicationDate) {
-        this.id = id;
+    private List<Comment> commentList = new ArrayList<Comment>();
+
+    public Comment(User author, String content, LocalDate publicationDate, List<Like> likeList,
+            List<Comment> commentList) {
         this.author = author;
         this.content = content;
         this.publicationDate = publicationDate;
+        this.likeList = likeList;
+        this.commentList = commentList;
     }
 
-    public void addLike(){
-        likeCount++;
-    }
-
-    public void removeLike(){
-        likeCount--;
-    }
-
-    
-// Getters
-
-    public String getId() {
-        return id;
+    public Comment() {
     }
 
     public User getAuthor() {
         return author;
     }
 
-    public LocalDate getPublicationDate() {
-        return publicationDate;
+    public void setAuthor(User author) {
+        this.author = author;
     }
-    
+
     public String getContent() {
         return content;
     }
 
-    public int getLikeCount() {
-        return likeCount;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDate getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public List<Like> getLikeList() {
         return likeList;
     }
 
-// Setters
-
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setLikeList(List<Like> likeList) {
+        this.likeList = likeList;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public List<Comment> getCommentList() {
+        return commentList;
     }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public void addComment(Comment comment) {
+        this.commentList.add(comment);
+    }
+
+    public void addLike(Like like) {
+        this.likeList.add(like);
+    }
+    
 }
