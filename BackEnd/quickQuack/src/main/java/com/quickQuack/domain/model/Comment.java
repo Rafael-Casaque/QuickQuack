@@ -10,15 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Comment {    
     
     private User author;
-
     private String content;
-
     private LocalDate publicationDate;    
-
     private List<Like> likeList = new ArrayList<Like>();
-
     private List<Comment> commentList = new ArrayList<Comment>();
-
+    
     public Comment(User author, String content, LocalDate publicationDate, List<Like> likeList,
             List<Comment> commentList) {
         this.author = author;
