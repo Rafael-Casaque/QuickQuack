@@ -7,20 +7,22 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "message")
-public class Message {        
+public class Message {
 
+    private User author;
     private String media;
     private String content;
-    private LocalDate publicationDate;    
-    private List<Like> likeList = new ArrayList<Like>(); 
+    private LocalDate publicationDate;
+    private List<Like> likeList = new ArrayList<Like>();
     private List<Comment> commentList = new ArrayList<Comment>();
     private List<User> shareList = new ArrayList<User>();
-    
+
     public Message() {
     }
 
-    public Message(String media, String content, LocalDate publicationDate, List<Like> likeList,
+    public Message(User author, String media, String content, LocalDate publicationDate, List<Like> likeList,
             List<Comment> commentList, List<User> shareList) {
+        this.author = author;
         this.media = media;
         this.content = content;
         this.publicationDate = publicationDate;
@@ -75,18 +77,26 @@ public class Message {
 
     public void setShareList(List<User> shareList) {
         this.shareList = shareList;
-    }        
+    }
 
-    public void addLike(Like like){
+    public void addLike(Like like) {
         this.likeList.add(like);
     }
 
-    public void addComment(Comment comment){
+    public void addComment(Comment comment) {
         this.commentList.add(comment);
     }
 
-    public void addShare(User user){
+    public void addShare(User user) {
         this.shareList.add(user);
     }
-    
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
 }

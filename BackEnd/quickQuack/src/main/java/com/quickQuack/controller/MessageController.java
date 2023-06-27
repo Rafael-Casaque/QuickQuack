@@ -31,7 +31,7 @@ public class MessageController {
             @RequestParam("start") int start,
             @RequestParam("end") int end) {
         MessageService messageService = new MessageService(messageRepository);
-        return messageService.getMessagesByRange(start, end);        
+        return messageService.getMessagesByRange(start, end);
     }
 
     @PostMapping
@@ -48,8 +48,8 @@ public class MessageController {
 
         String url = fileService.uploadFile(file, fileName);
 
-        Message message = new Message(url, content, null, null, null, null);
-                
+        Message message = new Message(null, url, content, null, null, null, null);
+
         messageRepository.save(message);
         return "deu certo";
     }
