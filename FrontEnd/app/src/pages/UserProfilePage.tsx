@@ -1,4 +1,4 @@
-import { Avatar, Button, CloseButton, Flex, FormControl, FormLabel, Heading, Input, InputGroup, InputRightElement, Textarea } from "@chakra-ui/react"
+import { Avatar, Button, Flex, FormControl, FormLabel, Heading, Input, Textarea } from "@chakra-ui/react"
 import { SideBar } from "../components/SideBar"
 import React from "react"
 
@@ -25,10 +25,8 @@ export const UserProfilePage = (props: UserProfileProps) => {
                 ml="40%"
                 mt="3%"
             >
-                <Flex w="100%" direction="row" justify="space-between" align="center" mt="16px">
-                    <CloseButton color="white" mr="10%" ml="16px" _hover={{ bg: "#ffffff25", cursor: "pointer" }} />
-                    <Heading size='md' color="white">Editar perfil</Heading>
-                    <Button borderRadius="30px" justifySelf="end" mr="16px">Salvar</Button>
+                <Flex w="100%" direction="row" justify="center" align="center" mt="16px">                    
+                    <Heading size='md' color="white">Editar perfil</Heading>                    
                 </Flex>
                 <Avatar name={props.name} size='2xl' src={props.avatar} mt="16px" />
                 <FormControl as='fieldset' w="80%" border="2px" mt="15px" borderRadius="15px" >
@@ -53,6 +51,7 @@ export const UserProfilePage = (props: UserProfileProps) => {
                         </Button>
                     </Flex>
                 </FormControl>
+                <Button borderRadius="30px" justifySelf="end" mr="16px">Salvar</Button>
             </Flex>
         </Flex>
     )

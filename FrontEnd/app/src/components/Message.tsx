@@ -20,6 +20,7 @@ interface MessageProps {
   usernameAuthor: string;
   createdAt: Date;
   description: string;
+  media: string;
   CommentList: {
     author: string;
     avatar: string;
@@ -33,9 +34,12 @@ interface MessageProps {
 export const Message = (props: MessageProps) => {
   const [showComment, setShowComment] = useState(false);
 
+  const isPhoto = /\.(jpe?g|png|gif|bmp|webp)$/i.test(props.media);
+
   return (
     <Flex
-      w="75%"
+      w="98%"
+      maxW="550px"
       px="10px"
       py="5px"
       bg="black"
@@ -74,12 +78,12 @@ export const Message = (props: MessageProps) => {
           <Text ml="5px" align="justify" textIndent="40px">
             {props.description}
           </Text>
-          <AspectRatio ratio={1} my="10px">
-            <iframe
-              title="naruto"
-              src="https://www.youtube.com/embed/QhBnZ6NPOY0"
-              allowFullScreen
-            />
+          <AspectRatio ratio={1} my="10px" minH="450px">
+            {isPhoto ? (
+              <img src={props.media} alt="" />
+            ) : (
+              <video src={props.media} controls />
+            )}
           </AspectRatio>
           <MessageReactions
             likeCount={props.likeList.length}

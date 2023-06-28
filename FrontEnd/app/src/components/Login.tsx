@@ -1,5 +1,16 @@
-import { Button, Flex, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
-import { useState } from 'react'
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,  
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+} from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import { ObserverDuck } from "./ObserverDuck";
 
 interface LoginProps {
   rotate: string;
@@ -8,9 +19,10 @@ interface LoginProps {
 }
 
 export const Login = (props: LoginProps) => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
+  const [focusedInput, setFocusedInput] = useState("null");
 
   return (
     <Flex
@@ -31,17 +43,69 @@ export const Login = (props: LoginProps) => {
       transform={props.rotate}
       zIndex={props.index}
     >
-      <Text fontSize="36px" w="100%" align="center">Sign In</Text>
+      <Text fontSize="36px" w="100%" align="center">
+        Sign In
+      </Text>
+      <ObserverDuck
+        focusedInput={focusedInput}
+        email={email}
+        password={password}
+        show={show}
+      />
       <Flex w="75%" as="form" direction="column" h="75%" justify="center">
         <FormControl mb="8px">
           <FormLabel>Email:</FormLabel>
-          <Input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} bg="#ccc" placeholder="Digite seu endereço de email" />
+          <Input
+            onFocus={() => setFocusedInput("login")}
+            onBlur={() => setFocusedInput("")}
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            bg="#ccc"
+            placeholder="Digite seu endereço de email"
+          />
         </FormControl>
         <FormControl mb="8px">
           <FormLabel>Senha:</FormLabel>
-          <Input value={password} onChange={(e) => { setPassword(e.target.value) }} bg="#ccc" type="password" placeholder="Digite sua senha de acesso" />
+          <InputGroup>
+            <Input
+              onFocus={() => setFocusedInput("password")}
+              onBlur={() => setFocusedInput("")}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              bg="#ccc"
+              type={show ? "text" : "password"}
+              placeholder="Digite sua senha de acesso"
+            />
+            <InputRightElement
+              width="50px"
+              onClick={() => {
+                setShow(!show);
+              }}
+            >
+              <Button h="1.75rem" size="sm" bg="transparent">
+                {show ? <ViewIcon /> : <ViewOffIcon />}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
         </FormControl>
-        <Button type="submit" onClick={(e) => { e.preventDefault(); login(email, password) }} colorScheme="blackAlpha" w="50%" alignSelf="center" mt="8px">Entrar</Button>
+        <Button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            login(email, password);
+          }}
+          colorScheme="blackAlpha"
+          w="50%"
+          alignSelf="center"
+          mt="8px"
+        >
+          Entrar
+        </Button>
       </Flex>
       {props.children}
     </Flex>
@@ -52,5 +116,5 @@ const login = (email: string, password: string) => {
   console.log({
     email: email,
     password: password,
-  })
-}
+  });
+};
