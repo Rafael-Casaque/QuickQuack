@@ -129,8 +129,7 @@ export const Register = (props: RegisterProps) => {
               toast,
               navigate
             );
-          }}
-          colorScheme="blackAlpha"
+          }}          
           w="50%"
           alignSelf="center"
           mt="8px"
