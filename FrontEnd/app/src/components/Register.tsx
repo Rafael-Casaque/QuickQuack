@@ -6,7 +6,12 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useState } from "react";
+import { urlApi } from "../consts/paths";
+import { useAuthStore } from "../contexts/AuthStore";
+import { useToast } from "@chakra-ui/react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 interface RegisterProps {
   rotate: string;
@@ -15,9 +20,12 @@ interface RegisterProps {
 }
 
 export const Register = (props: RegisterProps) => {
+  const navigate = useNavigate();
+  const toast = useToast();
 
   const [bDate, setBDate] = useState("");
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,7 +37,7 @@ export const Register = (props: RegisterProps) => {
       justify="space-around"
       position="absolute"
       width="450px"
-      height="525px"
+      height="536px"
       maxW="95%"
       p="0"
       border-radius="10px"
@@ -44,22 +52,38 @@ export const Register = (props: RegisterProps) => {
       <Text fontSize="36px" w="100%" align="center">
         Sign Up
       </Text>
-      <Flex as="form" w="75%" direction="column" h="75%" justify="center">
+      <Flex as="form" w="75%" direction="column" justify="center">
         <FormControl mb="8px">
           <FormLabel>Nome:</FormLabel>
           <Input
             value={name}
-            onChange={(e) => { setName(e.target.value) }}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
             bg="#ccc"
             type="text"
             placeholder="Digite seu nome completo"
           />
         </FormControl>
         <FormControl mb="8px">
+          <FormLabel>Login:</FormLabel>
+          <Input
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            bg="#ccc"
+            type="text"
+            placeholder="Digite seu username"
+          />
+        </FormControl>
+        <FormControl mb="8px">
           <FormLabel>Email:</FormLabel>
           <Input
             value={email}
-            onChange={(e) => { setEmail(e.target.value) }}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             bg="#ccc"
             type="email"
             placeholder="Digite seu endereço de email"
@@ -69,7 +93,9 @@ export const Register = (props: RegisterProps) => {
           <FormLabel>Data de nascimento:</FormLabel>
           <Input
             value={bDate}
-            onChange={(e) => { setBDate(e.target.value) }}
+            onChange={(e) => {
+              setBDate(e.target.value);
+            }}
             bg="#ccc"
             type="date"
           />
@@ -78,13 +104,37 @@ export const Register = (props: RegisterProps) => {
           <FormLabel>Senha:</FormLabel>
           <Input
             value={password}
-            onChange={(e) => { setPassword(e.target.value) }}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             bg="#ccc"
             type="password"
             placeholder="Digite sua senha de acesso"
           />
         </FormControl>
-        <Button type="submit" onClick={(e) => { e.preventDefault(); register(email, password, name, new Date(parseInt(bDate.slice(0, 4)), parseInt(bDate.slice(5, 7)), parseInt(bDate.slice(8, 10)))) }} colorScheme="blackAlpha" w="50%" alignSelf="center" mt="8px">
+        <Button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            register(
+              username,
+              email,
+              password,
+              name,
+              new Date(
+                parseInt(bDate.slice(0, 4)),
+                parseInt(bDate.slice(5, 7)),
+                parseInt(bDate.slice(8, 10))
+              ),
+              toast,
+              navigate
+            );
+          }}
+          colorScheme="blackAlpha"
+          w="50%"
+          alignSelf="center"
+          mt="8px"
+        >
           Cadastrar
         </Button>
       </Flex>
@@ -93,11 +143,57 @@ export const Register = (props: RegisterProps) => {
   );
 };
 
-const register = (email: string, password: string, name: string, bDate: Date) => {
-  console.log({
+const register = (
+  username: String,
+  email: string,
+  password: string,
+  name: string,
+  bDate: Date,
+  toast: any,
+  navigate: NavigateFunction
+) => {
+  const payload = {
     name: name,
-    bDate: bDate.toLocaleDateString(),
+    username: username,
+    bDate: bDate,
     email: email,
     password: password,
-  })
-}
+  };
+
+  axios
+    .post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload)
+    .then((res) => {
+      sessionStorage.setItem("user", JSON.stringify(res));
+      const login = useAuthStore((state) => state.login);
+      login();
+      navigate("/home");
+      toast({
+        title: "Conta criada",
+        description: "A conta foi criada com sucesso!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    })
+    .catch((err) => {
+      toast({
+        title: "Erro",
+        description: "A conta não foi criada!",
+        status: "failed",
+        duration: 5000,
+        isClosable: true,
+      });
+    });
+
+  console.log({
+    name: name,
+    bDate:
+      bDate.getFullYear().toString() +
+      "-" +
+      bDate.getMonth().toString() +
+      "-" +
+      bDate.getDate().toString(),
+    email: email,
+    password: password,
+  });
+};
