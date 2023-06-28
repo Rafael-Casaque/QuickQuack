@@ -152,11 +152,11 @@ const registerUser = async (
   const response = await axios.post(
     "https://casaque-teste-e3ef6.uc.r.appspot.com/user",
     {
-      name: name,
-      username: username,
-      birthDate:"2001-07-19",
-      email: email,
-      password: password,
+      "name": name,
+      "username": username,
+      "birthDate":"2001-07-19",
+      "email": email,
+      "password": password,
     }
   );
 
