@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "rrc-quickquack-390913",
+  "private_key_id": "4504f9f2de4de1d190b29f840ffcb11f40413929",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDSpfA2HOmKewwI\nmDlUMpOstZ9ehKxJVE7e4NnfhQ6QeGTbjuyzwLjE4i95FUQ1OmArnsc3KvWYfuTC\nDNX7ySrcj1Mc1sWbJ59vvB6Y+Srtp5F5YkFTSmJoO4uCOpq1W8bSnYJ+Lw1gcBdz\nSYQijDA7z2Z+gSkSDbHoMi3bC555QIU3JCYUS8aQqQuN7bWREtuEEzdDJc75tzIP\nKW1HIBLLSE1orkhTVHR/RrrUJ5+2yTe2EeqjNdijDDkjYdQPwTYoNMx5x19Aj5hN\nhyykpXmqfOiA/YqhbnlBu9OZhs1DUEAxY1ZYfpuU8RCOHYQFD6vFPybe2geSif+W\n8KA6EzUPAgMBAAECggEAEU1N8LPpPtWihGY0d0T8Ojhk0bemCxPgso/XdXORYa5x\n4lLYAF+5DXrimVh01MZptcuB43ck2xS5J3M0dEzut1USZ5EAhCD6CIx0Gu6EZybX\nXRgD85ptgNA7QkQcBv910kDbwg+NUrmCQ5brQocvQwpjCcsEG5aCYWcVuyM2LhFH\nYQtyESkrNInZdmVZdjvU8yyRPKTIssua8MFnfJWKvtchRG1/FKIr7/EHnVCiLqLS\n12sxgkk7QG9EqEHa56FI4RJsylYL/O+u7lqaKobj8qROPJXElkLpfJXi2pLw0IMm\n+Ep94jGMzEV9WsnWCRjqxpONg0HFXvCQ0Cw8VuZQUQKBgQD5aYQ3DhW+q4n3FknS\ntPBI9LTd+s6h1wW2i9KoCEMvxkTY+NYys1lhJVkqu6KGn42JfISKqpu+24V3tiq3\nU/eibwv0KTdtdb3x0P4kVj5HqJwra98aYmBiUWxGRvMbga4lcdOlTnSbxjuSv2Vw\nIcnITo3TDcR8ZDazsalD6EfgyQKBgQDYNk5qW817nYua8n06n2QAm2A7Q5V1ukp8\nfp1JQ8KGQ9emTDwrBPrn4PG4sXOrIDidPELnZBfpSXmsSUkImAPz9kGIns0uwuR9\nQK7c+b+tM9kuy/nPsSschtvfSgbDncbX3KTw+JCiRWXZ3We26rG04bpoFcprzpiN\nKAvv+lprFwKBgBlAKIWWZHcwUMB2PjUZ4nXQaHtMyBy0czye/U3LwFmW3iOFVdI+\nPB9Ms7FS28p7Xs37kEOlsCzrdqC/DaYP1zNXwMMQZS8sy3Uu7nvpS1bf6CexPR4j\ntZRen/Khfj1brLDXzFChF8cpk6BwxilLEm24Hj2u2CSr1Knuo69fVd+ZAoGBAMoq\nJTI/+qeuTR4pxLxu0xPaNKXVcMfu070KqskZqabfgqHFQLE869qrM3ntuuj0rNsg\nwLIZnl4MzM8yiy6U7YVM6kPzsIkbxIf1Vkva3sX16ApgwYnY8CWxV5+2WRLJ0WZ/\nsl57HMoON8j5xAN9+YHXWvP+BBK/z1aVbmwKXEcrAoGAKb2CcJ238CG/3dFHNrKK\nsx3wMWjiTmiqFqQDLBfbFt5FwIMu86kf5I7hhXPyV5JcWX2hvvmx19cnflS4Vff9\nwTW0ZUN6CIr02xly4LvSm5o5/EJrL0RPEOSwEbAe9Q8snqYLsWTFY5/v4vKAj1yW\n8Z0W+X5Q3VwP/UHG0pQOvKY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "spring-app-quickquack@rrc-quickquack-390913.iam.gserviceaccount.com",
+  "client_id": "103343081425683543251",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/spring-app-quickquack%40rrc-quickquack-390913.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
