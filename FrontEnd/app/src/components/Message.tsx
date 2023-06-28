@@ -21,6 +21,7 @@ interface MessageProps {
   createdAt: Date;
   description: string;
   media: string;
+  profileImage: string;
   CommentList: {
     author: string;
     avatar: string;
@@ -50,7 +51,7 @@ export const Message = (props: MessageProps) => {
       <Flex w="100%" direction="column">
         <Flex justify="space-between">
           <Flex align="center">
-            <Avatar src="https://static.poder360.com.br/2023/02/Lula-foto-oficial-recortada-reduzida-848x477.jpg" />
+            <Avatar src={props.profileImage} />
             <Text ml="10px" fontWeight="bold">
               {props.createdBy + " "}
               <Text as="span" fontWeight="light">

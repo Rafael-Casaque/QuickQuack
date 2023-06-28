@@ -11,7 +11,7 @@ export const Comment = (props: CommentProps) => {
   return (
     <Flex direction="column" my="10px">
       <Flex>
-        <Avatar w="40px" h="40px" src={props.avatar} />
+        <Avatar w="40px" h="40px" name={props.author} src={props.avatar} />
         <Flex
           direction="column"
           ml="10px"

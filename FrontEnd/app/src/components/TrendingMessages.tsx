@@ -71,7 +71,7 @@ export const TrendingMessages = (props: TrendingMessagesProps) => {
         </Text>
       </Flex>
       <Flex color="white" wrap="wrap" w="85%" justify="center">
-        <Text mx="2px">Desenvolvido por Jatubeiros</Text>
+        <Text mx="2px">Desenvolvido por rrcasaque</Text>
         <Text mx="2px">&copy; 2023</Text>
         <Link mx="2px">Termos de Serviço</Link>
       </Flex>

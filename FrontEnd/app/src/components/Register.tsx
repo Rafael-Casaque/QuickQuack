@@ -125,7 +125,9 @@ export const Register = (props: RegisterProps) => {
                 parseInt(bDate.slice(0, 4)),
                 parseInt(bDate.slice(5, 7)),
                 parseInt(bDate.slice(8, 10))
-              )
+              ),
+              navigate,
+              toast
             );
           }}
           colorScheme="blackAlpha"
@@ -146,7 +148,9 @@ const registerUser = async (
   email: string,
   password: string,
   name: string,
-  bDate: Date
+  bDate: Date,
+  navigate: NavigateFunction,
+  toast: any
 ) => {
   const payload = {
     email: email,
@@ -160,8 +164,21 @@ const registerUser = async (
       "-" +
       bDate.getDate().toString().padStart(2, "0"),
   };
-  console.log(payload);
-  const response = await axios.post(urlApi+"/user", payload);
 
-  console.log(response.data);
+  await axios
+    .post(urlApi + "/user", payload)
+    .then((res) => {
+      const login = useAuthStore((state) => state.login);
+      login();
+      navigate("/home");
+    })
+    .catch((err) => {
+      return toast({
+        title: "Erro",
+        description: "O usuário não foi cadastrado com sucesso",
+        status: "faied",
+        duration: 5000,
+        isClosable: true,
+      });
+    });
 };
