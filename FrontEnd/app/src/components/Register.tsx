@@ -125,7 +125,7 @@ export const Register = (props: RegisterProps) => {
                 parseInt(bDate.slice(0, 4)),
                 parseInt(bDate.slice(5, 7)),
                 parseInt(bDate.slice(8, 10))
-              ),
+              )
             );
           }}
           colorScheme="blackAlpha"
