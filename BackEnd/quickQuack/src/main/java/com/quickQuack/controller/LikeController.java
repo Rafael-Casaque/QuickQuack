@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.quickQuack.domain.model.Like;
 import com.quickQuack.domain.model.User;
 import com.quickQuack.domain.services.FileManagerService;
-import com.quickQuack.repositories.LikeRepository;
 
 @RestController
 @RequestMapping("/like")
-public class LikeController {
-    @Autowired
-    LikeRepository likeRepository;
+public class LikeController {    
 
     @Autowired
     FileManagerService fileService;
@@ -31,7 +28,7 @@ public class LikeController {
             ) throws IOException {
     
             Like like = new Like(user, date);
-            likeRepository.save(like);
+            
             return "deu certo";
             }
 }

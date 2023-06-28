@@ -2,9 +2,11 @@ package com.quickQuack.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,59 +29,78 @@ public class UserController {
     FileManagerService fileService;
 
     @GetMapping
-    public String getUser(
-            @RequestParam("username") String username) {
+    public ResponseEntity<Object> getUser(@RequestParam(required = false) String username) {
+        if (username == null) {
+            return ResponseEntity.status(422).body("parâmetro ausente na requisição");
+        }
 
-        User user = userRepository.findById(username)
-                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
+        Optional<User> user = userRepository.findById(username);
+        if (!user.isPresent()) {
+            return ResponseEntity.status(404).body("usuário não encontrado na base de dados");
+        }
 
-        return user.toString();
+        return ResponseEntity.ok(user.get());
     }
 
     @PostMapping
-    public String createUser(
-            @RequestParam("name") String name,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("email") String email,
-            @RequestParam("biography") String biography,
-            @RequestParam("birthDate") LocalDate birthDate,
-            @RequestParam MultipartFile file) throws IOException {
+    public ResponseEntity<String> createUser(
+            @RequestParam(value = "email", required = false) Optional<String> email,
+            @RequestParam(value = "name", required = false) Optional<String> name,
+            @RequestParam(value = "username", required = false) Optional<String> username,
+            @RequestParam(value = "password", required = false) Optional<String> password,
+            @RequestParam(value = "birthDate", required = false) Optional<LocalDate> birthDate) {
 
-        String originalFileName = file.getOriginalFilename();
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String fileName = UUID.randomUUID().toString() + extension;
-
-        String url = fileService.uploadFile(file, fileName);
-        User user = new User(name, username, password, email, biography, url, birthDate, null, null);
+        if (name.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || birthDate == null)
+            return ResponseEntity.status(422).body("parâmetros ausentes na requisição");
+        Optional<User> checkUser = userRepository.findById(username.get());
+        if (checkUser.isPresent())
+            return ResponseEntity.status(422).body("usuário já existente na base de dados");
+        User user = new User(name.get(), username.get(), password.get(), email.get(), name.get(), birthDate.get());
         userRepository.save(user);
-        return "deu certo";
+        return ResponseEntity.status(201).body("usuário criado com sucesso!");
+
     }
 
     @PutMapping
-    public String updateUser(
-            @RequestParam("name") String name,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("email") String email,
-            @RequestParam("biography") String biography,
-            @RequestParam("birthDate") LocalDate birthDate,
-            @RequestParam MultipartFile file) throws IOException {
+    public ResponseEntity<String> updateUser(
+            @RequestParam(value = "email", required = false) Optional<String> email,
+            @RequestParam(value = "name", required = false) Optional<String> name,
+            @RequestParam(value = "username", required = false) Optional<String> username,
+            @RequestParam(value = "password", required = false) Optional<String> password,
+            @RequestParam(value = "birthDate", required = false) Optional<LocalDate> birthDate,
+            @RequestParam(value = "biography", required = false) Optional<String> biography,
+            @RequestParam Optional<MultipartFile> file) {
 
-        String originalFileName = file.getOriginalFilename();
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String fileName = UUID.randomUUID().toString() + extension;
+        Optional<User> checkUser = userRepository.findById(username.get());
 
-        String url = fileService.uploadFile(file, fileName);
-        User updateUser = userRepository.findById(username)
-                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
-        updateUser.setBiography(biography);
-        updateUser.setBirthDate(birthDate);
-        updateUser.setEmail(email);
-        updateUser.setName(name);
-        updateUser.setPassword(password);
-        updateUser.setProfileImage(url);
-        userRepository.save(updateUser);
-        return "deu certo";
+        if (!checkUser.isPresent())
+            return ResponseEntity.status(404).body("usuário não encontrado na base de dados");
+
+        String url;
+
+        if (checkUser.get().getProfileImage() == null)
+            url = checkUser.get().getName();
+        else
+            url = checkUser.get().getProfileImage();
+
+        if (file.isPresent()) {
+            try {
+                String originalFileName = file.get().getOriginalFilename();
+                String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                String fileName = UUID.randomUUID().toString() + extension;
+                url = fileService.uploadFile(file.get(), fileName);
+            } catch (IOException e) {
+                return ResponseEntity.status(500).body("deu errado aqui!");
+            }
+        }
+        User user = checkUser.get();
+        user.setBiography(biography.orElse(user.getBiography()));
+        user.setBirthDate(birthDate.orElse(user.getBirthDate()));
+        user.setEmail(email.orElse(user.getEmail()));
+        user.setName(name.orElse(user.getName()));
+        user.setPassword(password.orElse(user.getPassword()));
+        user.setProfileImage(url);
+        userRepository.save(user);
+        return ResponseEntity.status(200).body("atualizado com sucesso!");
     }
 }

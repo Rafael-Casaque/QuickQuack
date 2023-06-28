@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "message")
 public class Message {
-
+    private String id;
     private User author;
     private String media;
     private String content;
@@ -20,8 +20,9 @@ public class Message {
     public Message() {
     }
 
-    public Message(User author, String media, String content, LocalDate publicationDate, List<Like> likeList,
+    public Message(String id, User author, String media, String content, LocalDate publicationDate, List<Like> likeList,
             List<Comment> commentList, List<User> shareList) {
+        this.id = id;
         this.author = author;
         this.media = media;
         this.content = content;
@@ -29,7 +30,7 @@ public class Message {
         this.likeList = likeList;
         this.commentList = commentList;
         this.shareList = shareList;
-    }
+    }    
 
     public String getMedia() {
         return media;
@@ -98,5 +99,15 @@ public class Message {
     public void setAuthor(User author) {
         this.author = author;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    
 
 }

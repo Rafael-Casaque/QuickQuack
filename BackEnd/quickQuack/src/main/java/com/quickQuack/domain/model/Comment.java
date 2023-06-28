@@ -7,14 +7,14 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "comment")
-public class Comment {    
+public class Comment {
     
     private User author;
     private String content;
-    private LocalDate publicationDate;    
+    private LocalDate publicationDate;
     private List<Like> likeList = new ArrayList<Like>();
     private List<Comment> commentList = new ArrayList<Comment>();
-    
+
     public Comment(User author, String content, LocalDate publicationDate, List<Like> likeList,
             List<Comment> commentList) {
         this.author = author;
@@ -74,5 +74,5 @@ public class Comment {
     public void addLike(Like like) {
         this.likeList.add(like);
     }
-    
+
 }

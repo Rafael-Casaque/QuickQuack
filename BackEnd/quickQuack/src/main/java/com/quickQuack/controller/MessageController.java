@@ -35,8 +35,7 @@ public class MessageController {
     }
 
     @PostMapping
-    public String createMessage(
-            @RequestParam("id") String id,
+    public String createMessage(            
             @RequestParam MultipartFile file,
             @RequestParam("content") String content,
             @RequestParam("likeCount") int likeCount,
@@ -48,7 +47,7 @@ public class MessageController {
 
         String url = fileService.uploadFile(file, fileName);
 
-        Message message = new Message(null, url, content, null, null, null, null);
+        Message message = new Message(null,null, url, content, null, null, null, null);
 
         messageRepository.save(message);
         return "deu certo";

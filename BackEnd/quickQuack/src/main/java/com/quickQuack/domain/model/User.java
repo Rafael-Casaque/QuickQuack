@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
-public class User {    
+public class User {
     private String name;
     @Id
     private String username;
@@ -18,9 +18,24 @@ public class User {
     private LocalDate birthDate;
     private ArrayList<User> followList;
     private ArrayList<User> followerList;
-    
+
     public User() {
     }
+
+    public User(String name, String username, String profileImage) {
+        this.name = name;
+        this.username = username;
+        this.profileImage = profileImage;
+    }
+
+    public User(String name, String username, String password, String email, String profileImage, LocalDate birthDate) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.profileImage = profileImage;
+        this.birthDate = birthDate;
+    }    
 
     public User(String name, String username, String password, String email, String biography, String profileImage,
             LocalDate birthDate, ArrayList<User> followList, ArrayList<User> followerList) {
@@ -33,7 +48,7 @@ public class User {
         this.birthDate = birthDate;
         this.followList = followList;
         this.followerList = followerList;
-    }    
+    }
 
     // Getters
 
@@ -117,7 +132,5 @@ public class User {
                 + ", biography=" + biography + ", profileImage=" + profileImage + ", birthDate=" + birthDate
                 + ", followList=" + followList + ", followerList=" + followerList + "]";
     }
-
-    
 
 }
