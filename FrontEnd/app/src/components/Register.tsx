@@ -161,7 +161,7 @@ const registerUser = async (
       bDate.getDate().toString().padStart(2, "0"),
   };
   console.log(payload);
-  const response = await axios.post("http://localhost:8080/user", payload);
+  const response = await axios.post(urlApi+"/user", payload);
 
   console.log(response.data);
 };
