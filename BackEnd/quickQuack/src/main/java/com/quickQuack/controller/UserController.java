@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,29 +48,31 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(
-            @RequestParam(value = "email", required = false) Optional<String> email,
-            @RequestParam(value = "name", required = false) Optional<String> name,
-            @RequestParam(value = "username", required = false) Optional<String> username,
-            @RequestParam(value = "password", required = false) Optional<String> password,
-            @RequestParam(value = "birthDate", required = false) Optional<LocalDate> birthDate) {
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        String name = user.getName();
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String email = user.getEmail();
+        LocalDate birthDate = user.getBirthDate();
 
-        if (name.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || birthDate == null)
+        if (name.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || birthDate == null) {
             return ResponseEntity.status(422).body("parâmetros ausentes na requisição");
-        Optional<User> checkUser = userRepository.findById(username.get());
-        if (checkUser.isPresent())
+        }
+
+        Optional<User> checkUser = userRepository.findById(username);
+        if (checkUser.isPresent()) {
             return ResponseEntity.status(422).body("usuário já existente na base de dados");
+        }
 
-        ArrayList<Message> messageList = new ArrayList<Message>();
-        ArrayList<User> followList = new ArrayList<User>();
-        ArrayList<User> followerList = new ArrayList<User>();
+        ArrayList<Message> messageList = new ArrayList<>();
+        ArrayList<User> followList = new ArrayList<>();
+        ArrayList<User> followerList = new ArrayList<>();
 
-        User user = new User(name.get(), username.get(), password.get(), email.get(), birthDate.get(), followList,
-                followerList, messageList, name.get());
-        userRepository.save(user);
+        User newUser = new User(name, username, password, email, birthDate, followList, followerList, messageList, name);
+        userRepository.save(newUser);
         return ResponseEntity.status(201).body("usuário criado com sucesso!");
-
     }
+
 
     @PutMapping
     public ResponseEntity<String> updateUser(

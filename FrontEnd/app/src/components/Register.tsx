@@ -143,18 +143,20 @@ export const Register = (props: RegisterProps) => {
 
 const registerUser = async (username: string, email: string, password: string, name: string, bDate: Date) => {
     const payload = {
+      email: email,
       name: name,
       username: username,
+      password: password,
       birthDate:
         bDate.getFullYear().toString() +
         "-" +
-        bDate.getMonth().toString() +
+        (bDate.getMonth() + 1).toString().padStart(2, '0') +
         "-" +
-        bDate.getDate().toString(),
-      email: email,
-      password: password,}
-    const response = await axios.post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload);
+        bDate.getDate().toString().padStart(2, '0')
+      }
+      console.log(payload);
+    const response = await axios.post("http://localhost:8080/user", payload);
     
-    // Processar a resposta da solicitação POST, se necessário
     console.log(response.data);
+    
 };

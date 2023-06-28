@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,19 +31,20 @@ public class LikeController {
     MessageRepository messageRepository;
 
     @PostMapping
-    public ResponseEntity<Object> createLike(
-            @RequestParam(value = "username", required = false) Optional<String> username,
-            @RequestParam(value = "messageId", required = false) Optional<String> messageId) {
+    public ResponseEntity<Object> createLike(@RequestBody CreateLikeRequest request) {
+        String username = request.getUsername();
+        String messageId = request.getMessageId();
 
-        if (messageId.isEmpty() || username.isEmpty())
+        if (messageId == null || username == null) {
             return ResponseEntity.status(422).body("parâmetros ausentes na requisição");
+        }
 
-        Optional<User> checkUser = userRepository.findById(username.get());
+        Optional<User> checkUser = userRepository.findById(username);
         if (!checkUser.isPresent()) {
             return ResponseEntity.status(404).body("usuário não encontrado na base de dados");
         }
 
-        Optional<Message> checkMessage = messageRepository.findById(messageId.get());
+        Optional<Message> checkMessage = messageRepository.findById(messageId);
         if (!checkMessage.isPresent()) {
             return ResponseEntity.status(404).body("mensagem não encontrada na base de dados");
         }
@@ -53,8 +55,8 @@ public class LikeController {
         messageRepository.save(checkMessage.get());
 
         return ResponseEntity.ok(checkMessage.get());
-
     }
+
 
     @DeleteMapping
     public ResponseEntity<Object> removeLike(

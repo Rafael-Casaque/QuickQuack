@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -91,17 +92,16 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createMessage(
-            @RequestParam Optional<MultipartFile> file,
-            @RequestParam(value = "content", required = false) Optional<String> content,
-            @RequestParam(value = "username", required = false) Optional<String> username
+    public ResponseEntity<Object> createMessage(@RequestBody CreateMessageRequest request) {
+        String content = request.getContent();
+        String username = request.getUsername();
+        MultipartFile file = request.getFile();
 
-    ) {
-
-        if (content.isEmpty() || username.isEmpty())
+        if (content == null || username == null) {
             return ResponseEntity.status(422).body("parâmetros ausentes na requisição");
+        }
 
-        Optional<User> checkUser = userRepository.findById(username.get());
+        Optional<User> checkUser = userRepository.findById(username);
         if (!checkUser.isPresent()) {
             return ResponseEntity.status(404).body("usuário não encontrado na base de dados");
         }
@@ -111,12 +111,12 @@ public class MessageController {
 
         String url = null;
 
-        if (file.isPresent()) {
+        if (file != null) {
             try {
-                String originalFileName = file.get().getOriginalFilename();
+                String originalFileName = file.getOriginalFilename();
                 String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
                 String fileName = UUID.randomUUID().toString() + extension;
-                url = fileService.uploadFile(file.get(), fileName);
+                url = fileService.uploadFile(file, fileName);
             } catch (IOException e) {
                 return ResponseEntity.status(500).body("deu errado aqui!");
             }
@@ -124,7 +124,7 @@ public class MessageController {
 
         LocalDate now = LocalDate.now();
 
-        Message message = new Message(username.get() + UUID.randomUUID().toString(), user, url, content.get(), now,
+        Message message = new Message(username + UUID.randomUUID().toString(), user, url, content, now,
                 null, null, null);
 
         checkUser.get().getMessageList().add(message);
@@ -133,4 +133,6 @@ public class MessageController {
         userRepository.save(checkUser.get());
         return ResponseEntity.ok(message);
     }
+
+
 }
