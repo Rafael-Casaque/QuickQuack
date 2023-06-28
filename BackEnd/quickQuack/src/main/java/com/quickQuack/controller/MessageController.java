@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.quickQuack.domain.model.Like;
 import com.quickQuack.domain.model.Message;
 import com.quickQuack.domain.model.User;
 import com.quickQuack.domain.services.FileManagerService;
