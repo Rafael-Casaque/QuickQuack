@@ -116,7 +116,7 @@ export const Register = (props: RegisterProps) => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            register(
+            registerUser(
               username,
               email,
               password,
@@ -126,8 +126,6 @@ export const Register = (props: RegisterProps) => {
                 parseInt(bDate.slice(5, 7)),
                 parseInt(bDate.slice(8, 10))
               ),
-              toast,
-              navigate
             );
           }}
           colorScheme="blackAlpha"
@@ -143,50 +141,20 @@ export const Register = (props: RegisterProps) => {
   );
 };
 
-const register = (
-  username: String,
-  email: string,
-  password: string,
-  name: string,
-  bDate: Date,
-  toast: any,
-  navigate: NavigateFunction
-) => {
-  const payload = {
-    name: name,
-    username: username,
-    birthDate:
-      bDate.getFullYear().toString() +
-      "-" +
-      bDate.getMonth().toString() +
-      "-" +
-      bDate.getDate().toString(),
-    email: email,
-    password: password,
-  };
-
-  axios
-    .post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload)
-    .then((res) => {
-      sessionStorage.setItem("user", JSON.stringify(res));
-      const login = useAuthStore((state) => state.login);
-      login();
-      navigate("/home");
-      toast({
-        title: "Conta criada",
-        description: "A conta foi criada com sucesso!",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-    })
-    .catch((err) => {
-      toast({
-        title: "Erro",
-        description: "A conta não foi criada!",
-        status: "failed",
-        duration: 5000,
-        isClosable: true,
-      });
-    });  
+const registerUser = async (username: string, email: string, password: string, name: string, bDate: Date) => {
+    const payload = {
+      name: name,
+      username: username,
+      birthDate:
+        bDate.getFullYear().toString() +
+        "-" +
+        bDate.getMonth().toString() +
+        "-" +
+        bDate.getDate().toString(),
+      email: email,
+      password: password,}
+    const response = await axios.post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload);
+    
+    // Processar a resposta da solicitação POST, se necessário
+    console.log(response.data);
 };
