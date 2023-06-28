@@ -18,6 +18,7 @@ public class User {
     private LocalDate birthDate;
     private ArrayList<User> followList;
     private ArrayList<User> followerList;
+    private ArrayList<Message> messageList;
 
     public User() {
     }
@@ -28,14 +29,18 @@ public class User {
         this.profileImage = profileImage;
     }
 
-    public User(String name, String username, String password, String email, String profileImage, LocalDate birthDate) {
+    public User(String name, String username, String password, String email, LocalDate birthDate,
+            ArrayList<User> followList, ArrayList<User> followerList, ArrayList<Message> messageList, String profileImage) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.profileImage = profileImage;
         this.birthDate = birthDate;
-    }    
+        this.followList = followList;
+        this.followerList = followerList;
+        this.messageList = messageList;
+        this.profileImage = profileImage;
+    }
 
     public User(String name, String username, String password, String email, String biography, String profileImage,
             LocalDate birthDate, ArrayList<User> followList, ArrayList<User> followerList) {
@@ -126,11 +131,16 @@ public class User {
         this.followerList = followerList;
     }
 
-    @Override
-    public String toString() {
-        return "User [name=" + name + ", username=" + username + ", password=" + password + ", email=" + email
-                + ", biography=" + biography + ", profileImage=" + profileImage + ", birthDate=" + birthDate
-                + ", followList=" + followList + ", followerList=" + followerList + "]";
+    public ArrayList<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(ArrayList<Message> messageList) {
+        this.messageList = messageList;
+    }
+
+    public void addMessage(Message message) {
+        this.messageList.add(message);
     }
 
 }

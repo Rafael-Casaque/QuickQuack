@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "message")
 public class Message {
+    @Id
     private String id;
     private User author;
     private String media;
@@ -20,6 +22,14 @@ public class Message {
     public Message() {
     }
 
+    public Message(String id, User author, String media, String content, LocalDate publicationDate) {
+        this.id = id;
+        this.author = author;
+        this.media = media;
+        this.content = content;
+        this.publicationDate = publicationDate;
+    }
+
     public Message(String id, User author, String media, String content, LocalDate publicationDate, List<Like> likeList,
             List<Comment> commentList, List<User> shareList) {
         this.id = id;
@@ -30,7 +40,7 @@ public class Message {
         this.likeList = likeList;
         this.commentList = commentList;
         this.shareList = shareList;
-    }    
+    }
 
     public String getMedia() {
         return media;
@@ -107,7 +117,5 @@ public class Message {
     public void setId(String id) {
         this.id = id;
     }
-
-    
 
 }

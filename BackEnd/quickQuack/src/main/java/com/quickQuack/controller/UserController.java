@@ -2,6 +2,7 @@ package com.quickQuack.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.quickQuack.domain.model.Message;
 import com.quickQuack.domain.model.User;
 import com.quickQuack.domain.services.FileManagerService;
 import com.quickQuack.repositories.UserRepository;
@@ -55,7 +57,13 @@ public class UserController {
         Optional<User> checkUser = userRepository.findById(username.get());
         if (checkUser.isPresent())
             return ResponseEntity.status(422).body("usuário já existente na base de dados");
-        User user = new User(name.get(), username.get(), password.get(), email.get(), name.get(), birthDate.get());
+
+        ArrayList<Message> messageList = new ArrayList<Message>();
+        ArrayList<User> followList = new ArrayList<User>();
+        ArrayList<User> followerList = new ArrayList<User>();
+
+        User user = new User(name.get(), username.get(), password.get(), email.get(), birthDate.get(), followList,
+                followerList, messageList, name.get());
         userRepository.save(user);
         return ResponseEntity.status(201).body("usuário criado com sucesso!");
 
