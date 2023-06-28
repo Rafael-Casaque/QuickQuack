@@ -125,7 +125,7 @@ export const Register = (props: RegisterProps) => {
                 parseInt(bDate.slice(0, 4)),
                 parseInt(bDate.slice(5, 7)),
                 parseInt(bDate.slice(8, 10))
-              ),
+              )
             );
           }}
           colorScheme="blackAlpha"
@@ -141,20 +141,29 @@ export const Register = (props: RegisterProps) => {
   );
 };
 
-const registerUser = async (username: string, email: string, password: string, name: string, bDate: Date) => {
-    const payload = {
-      "name": name,
-      "username": username,
-      "birthDate":
+const registerUser = async (
+  username: string,
+  email: string,
+  password: string,
+  name: string,
+  bDate: Date
+) => {  
+  const response = await axios.post(
+    "https://casaque-teste-e3ef6.uc.r.appspot.com/user",
+    {
+      name: name,
+      username: username,
+      birthDate:
         bDate.getFullYear().toString() +
         "-" +
         bDate.getMonth().toString() +
         "-" +
         bDate.getDate().toString(),
-      "email": email,
-      "password": password,}
-    const response = await axios.post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload);
-    
-    // Processar a resposta da solicitação POST, se necessário
-    console.log(response.data);
+      email: email,
+      password: password,
+    }
+  );
+
+  // Processar a resposta da solicitação POST, se necessário
+  console.log(response.data);
 };
