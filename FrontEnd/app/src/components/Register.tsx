@@ -166,4 +166,5 @@ const registerUser = async (
 
   // Processar a resposta da solicitação POST, se necessário
   console.log(response.data);
+  console.log("versão atual")
 };
