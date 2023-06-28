@@ -148,18 +148,13 @@ const registerUser = async (
   name: string,
   bDate: Date
 ) => {
-  console.log("versão atual 2");
+  console.log("versão atual");
   const response = await axios.post(
     "https://casaque-teste-e3ef6.uc.r.appspot.com/user",
     {
       name: name,
       username: username,
-      birthDate:
-        bDate.getFullYear().toString() +
-        "-" +
-        bDate.getMonth().toString() +
-        "-" +
-        bDate.getDate().toString(),
+      birthDate:"2001-07-19",
       email: email,
       password: password,
     }
