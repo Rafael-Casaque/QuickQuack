@@ -152,12 +152,13 @@ const register = (
   toast: any,
   navigate: NavigateFunction
 ) => {
+
   const payload = {
-    name: name,
-    username: username,
-    birthDate: bDate,
-    email: email,
-    password: password,
+    "name": name,
+    "username": username,
+    "birthDate": bDate,
+    "email": email,
+    "password": password,
   };  
 
   axios
