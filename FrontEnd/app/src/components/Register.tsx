@@ -152,14 +152,18 @@ const register = (
   toast: any,
   navigate: NavigateFunction
 ) => {
-
   const payload = {
-    "name": name,
-    "username": username,
-    "birthDate": bDate,
-    "email": email,
-    "password": password,
-  };  
+    name: name,
+    username: username,
+    birthDate:
+      bDate.getFullYear().toString() +
+      "-" +
+      bDate.getMonth().toString() +
+      "-" +
+      bDate.getDate().toString(),
+    email: email,
+    password: password,
+  };
 
   axios
     .post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload)
@@ -184,17 +188,5 @@ const register = (
         duration: 5000,
         isClosable: true,
       });
-    });
-
-  console.log({
-    name: name,
-    bDate:
-      bDate.getFullYear().toString() +
-      "-" +
-      bDate.getMonth().toString() +
-      "-" +
-      bDate.getDate().toString(),
-    email: email,
-    password: password,
-  });
+    });  
 };
