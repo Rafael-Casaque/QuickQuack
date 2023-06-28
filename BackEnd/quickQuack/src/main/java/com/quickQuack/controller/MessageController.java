@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.quickQuack.domain.model.Like;
 import com.quickQuack.domain.model.Message;
 import com.quickQuack.domain.model.User;
 import com.quickQuack.domain.services.FileManagerService;
@@ -36,11 +38,55 @@ public class MessageController {
     FileManagerService fileService;
 
     @GetMapping
-    public List<Message> consultarRegistros(
-            @RequestParam("start") int start,
-            @RequestParam("end") int end) {
+    public ResponseEntity<Object> consultarRegistros(
+            @RequestParam(required = false) String findBy,
+            @RequestParam(required = false) Optional<String> username,
+            @RequestParam(required = false) Optional<Integer> start,
+            @RequestParam(required = false) Optional<Integer> end) {
         MessageService messageService = new MessageService(messageRepository);
-        return messageService.getMessagesByRange(start, end);
+        if (start.isEmpty() || end.isEmpty())
+            return ResponseEntity.status(422).body("parâmetros ausentes na requisição");
+        if (findBy.isEmpty()) {
+            List<Message> messageList = messageService.getMessagesByRange(start.get(), end.get());
+            return ResponseEntity.ok(messageList);
+        }
+        if (findBy.equals("myMessages")) {
+            if (username.isEmpty())
+                return ResponseEntity.status(422).body("parâmetros ausentes na requisição");
+
+            Optional<User> user = userRepository.findById(username.get());
+            if (!user.isPresent())
+                return ResponseEntity.status(404).body("usuário não encontrado na base de dados");
+
+            List<Message> messageList = user.get().getMessageList().subList(start.get(), end.get());
+
+            return ResponseEntity.ok(messageList);
+        }
+
+        if (findBy.equals("followerMessage")) {
+            if (username.isEmpty()) {
+                return ResponseEntity.status(422).body("parâmetros ausentes na requisição");
+            }
+
+            Optional<User> user = userRepository.findById(username.get());
+            if (!user.isPresent()) {
+                return ResponseEntity.status(404).body("usuário não encontrado na base de dados");
+            }
+
+            List<Message> followMessages = messageRepository.findAll()
+                    .stream()
+                    .filter(message -> user.get().getFollowList().contains(message.getAuthor()))
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(followMessages.subList(start.get(), end.get()));
+        }
+
+        List<Message> filteredMessages = messageRepository.findAll()
+                .stream()
+                .filter(message -> !message.getAuthor().getUsername().equals(username.get()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(filteredMessages.subList(start.get(), end.get()));
     }
 
     @PostMapping
