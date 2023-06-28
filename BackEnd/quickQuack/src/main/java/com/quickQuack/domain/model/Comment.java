@@ -4,19 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "comment")
 public class Comment {
-    
+    @Id
+    private String id;
     private User author;
     private String content;
     private LocalDate publicationDate;
     private List<Like> likeList = new ArrayList<Like>();
     private List<Comment> commentList = new ArrayList<Comment>();
 
-    public Comment(User author, String content, LocalDate publicationDate, List<Like> likeList,
+    public Comment(String id, User author, String content, LocalDate publicationDate, List<Like> likeList,
             List<Comment> commentList) {
+        this.id = id;
         this.author = author;
         this.content = content;
         this.publicationDate = publicationDate;
@@ -73,6 +76,14 @@ public class Comment {
 
     public void addLike(Like like) {
         this.likeList.add(like);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }
