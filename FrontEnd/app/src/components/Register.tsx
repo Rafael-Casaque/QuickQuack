@@ -158,41 +158,32 @@ const register = (
     birthDate: bDate,
     email: email,
     password: password,
-  };
+  };  
 
   axios
-    .get("https://casaque-teste-e3ef6.uc.r.appspot.com/user")
+    .post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload)
     .then((res) => {
-      console.log(res);
+      sessionStorage.setItem("user", JSON.stringify(res));
+      const login = useAuthStore((state) => state.login);
+      login();
+      navigate("/home");
+      toast({
+        title: "Conta criada",
+        description: "A conta foi criada com sucesso!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
     })
     .catch((err) => {
-      console.log(err);
+      toast({
+        title: "Erro",
+        description: "A conta não foi criada!",
+        status: "failed",
+        duration: 5000,
+        isClosable: true,
+      });
     });
-
-  // axios
-  //   .post("https://casaque-teste-e3ef6.uc.r.appspot.com/user", payload)
-  //   .then((res) => {
-  //     sessionStorage.setItem("user", JSON.stringify(res));
-  //     const login = useAuthStore((state) => state.login);
-  //     login();
-  //     navigate("/home");
-  //     toast({
-  //       title: "Conta criada",
-  //       description: "A conta foi criada com sucesso!",
-  //       status: "success",
-  //       duration: 5000,
-  //       isClosable: true,
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     toast({
-  //       title: "Erro",
-  //       description: "A conta não foi criada!",
-  //       status: "failed",
-  //       duration: 5000,
-  //       isClosable: true,
-  //     });
-  //   });
 
   console.log({
     name: name,
