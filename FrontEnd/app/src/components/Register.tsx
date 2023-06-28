@@ -147,7 +147,8 @@ const registerUser = async (
   password: string,
   name: string,
   bDate: Date
-) => {  
+) => {
+  console.log("versão atual 2");
   const response = await axios.post(
     "https://casaque-teste-e3ef6.uc.r.appspot.com/user",
     {
@@ -166,5 +167,4 @@ const registerUser = async (
 
   // Processar a resposta da solicitação POST, se necessário
   console.log(response.data);
-  console.log("versão atual")
 };
